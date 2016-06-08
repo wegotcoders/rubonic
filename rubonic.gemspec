@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ketan Patel"]
   spec.email         = ["ketpat@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Rake scripts to automate cordova development.}
+  spec.description   = %q{To build mobile applications with cordova. Rubonic allows you to package and run your HTML5 web apps in a web view.}
+  spec.homepage      = "https://github.com/wegotcoders/rubonic"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
@@ -27,7 +27,9 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "jammit"
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "pry-byebug"
 end
