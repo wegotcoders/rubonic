@@ -1,0 +1,24 @@
+javascripts:
+  application:
+    # - public/javascripts/libs/underscore.js
+    # - public/javascripts/libs/jquery.js
+    # - public/javascripts/libs/backbone.js
+    # - public/javascripts/libs/bootstrap.min.js
+    # - public/javascripts/libs/backbone.dualstorage.js
+    # - public/javascripts/libs/utility.js
+    # - public/javascripts/app.js
+    # - public/javascripts/ajax_defaults.js
+    # - public/javascripts/models/**/*.js
+    # - public/javascripts/collections/**/*.js
+    # - public/javascripts/templates/**/*.jst
+    # - public/javascripts/views/**/*.js
+    # - public/javascripts/controllers/**/*.js
+
+stylesheets:
+  common:
+    # - public/stylesheets/bootstrap.css
+    # - public/stylesheets/bootstrap-theme.css
+    # - public/stylesheets/*
+    # - public/stylesheets/main.css
+
+template_function: _.template
