@@ -15,7 +15,9 @@ project :test              => :rspec,
 generate :app, 'mobile'
 generate :app, 'api'
 
-# mkdir 'build'
+empty_directory "public/fonts"
+empty_directory "build"
+
 
 rubonic_root_path = Gem::Specification.find_by_name('rubonic').gem_dir
 rubonic_templates_path = "#{rubonic_root_path}/padrino_templates"
@@ -38,6 +40,7 @@ inject_into_file "Rakefile", "require 'rubonic'", :after => "require 'padrino-co
 inject_into_file "Rakefile", "require 'rubonic/tasks'\n", :after => "require 'rubonic'\n"
 inject_into_file "mobile/app.rb", File.read("#{rubonic_templates_path}/app.rb"),
                 :after => "enable :sessions\n"
+prepend_file "mobile/app.rb", "require 'padrino-helpers'\n"
 
 
 
