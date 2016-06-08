@@ -1,0 +1,5 @@
+---
+:build_dir: build
+:package_name: com.wegotcoders.sub_app
+:app_name: sub_app
+:api_host: http://localhost:3000

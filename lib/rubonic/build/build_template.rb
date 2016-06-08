@@ -40,7 +40,7 @@ module Rubonic::Build
       end
 
       def config
-        @config ||= YAML.load_file(ENV['CONFIG_FILE'] || "build.yml")
+        @config ||= YAML.load_file(ENV['CONFIG_FILE'] || "config/rubonic.yml")
       end
 
       def build_dir
@@ -66,7 +66,7 @@ module Rubonic::Build
         # TODO - This api_host needs to be where the api lives in production
         Struct.new("Settings", :api_host)
         settings = Struct::Settings.new(config[:api_host])
-        template = ERB.new(File.read('views/index.erb'))
+        template = ERB.new(File.read('mobile/views/index.erb'))
 
         def include_stylesheets(*args)
           '<link href="css/common.css" type="text/css" rel="stylesheet" />'
@@ -83,13 +83,13 @@ module Rubonic::Build
         FileUtils.cp_r 'public/images/.', File.join(build_dir.path, 'www', 'img')
         FileUtils.cp 'public/assets/common.css', File.join(build_dir.path, 'www', 'css')
         FileUtils.cp 'public/assets/application.js', File.join(build_dir.path, 'www', 'js')
-        FileUtils.cp_r 'public/fonts', File.join(build_dir.path, 'www')
+        FileUtils.cp_r 'public/fonts/.', File.join(build_dir.path, 'www', 'fonts')
         FileUtils.cp 'public/index.html', File.join(build_dir.path, 'www')
       end
 
       private
       def execute(cmd)
-        # puts cmd
+        puts cmd
         `#{cmd}`
       end
     end
