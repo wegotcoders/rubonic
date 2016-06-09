@@ -3,7 +3,7 @@
 project :test              => :rspec,
         :orm               => :activerecord,
         :renderer          => :haml,
-        :§sheet        => :scss,
+        :stylesheet        => :scss,
         :migration_format  => :timestamp
 
 # # generate :model, "post title:string body:text"
@@ -25,6 +25,7 @@ rubonic_templates_path = "#{rubonic_root_path}/padrino_templates"
 add_file 'config/assets.yml', File.read("#{rubonic_templates_path}/assets.yml")
 add_file 'mobile/views/index.erb', File.read("#{rubonic_templates_path}/index.erb")
 add_file 'config/rubonic.yml', File.read("#{rubonic_templates_path}/rubonic.yml")
+add_file 'app/stylesheets/styles.scss', File.read("#{rubonic_templates_path}/styles.css")
 
 inject_into_file "Gemfile", "gem 'rubonic'", :after => "source 'https://rubygems.org'\n"
 inject_into_file "Rakefile", "require 'rubonic'", :after => "require 'padrino-core/cli/rake'\n"
@@ -62,7 +63,8 @@ bower = <<-BOWER
     "angular": "^1.5.6",
     "angular-mocks": "^1.5.6",
     "angular-ui-router": "^0.3.1",
-    "Framework7": "framework7#^1.4.2"
+    "Framework7": "framework7#^1.4.2",
+    "inuit-starter-kit": "^0.2.9"
   }
 }
 BOWER
@@ -73,6 +75,8 @@ create_file 'bower.json', bower
 system "cd #{destination_root} && npm install"
 system "cd #{destination_root} && ./node_modules/bower/bin/bower install --save"
 
+
+# Copy required libraries to correct directories
 require 'fileutils'
 
 public_js_directory   = File.join(destination_root, 'public/javascripts')
@@ -89,6 +93,8 @@ FileUtils.cp "#{bower_framework7_path}/css/framework7.ios.rtl.css", "#{public_cs
 FileUtils.cp "#{bower_framework7_path}/css/framework7.material.css", "#{public_css_directory}"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.material.colors.css", "#{public_css_directory}"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.material.rtl.css", "#{public_css_directory}"
+
+
 
 git :init
 
