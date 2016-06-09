@@ -5,7 +5,7 @@
   default-src 'self' data: gap: https://*.gstatic.com 'unsafe-eval';
   style-src 'self' 'unsafe-inline' https://*.googleapis.com;
   script-src 'self' 'unsafe-inline' https://*.googleapis.com https://maps.gstatic.com 'unsafe-eval';
-  img-src 'self' 'unsafe-inline' https://*.googleapis.com https://*.gstatic.com 'unsafe-eval';
+  img-src 'self' data: 'unsafe-inline' 'unsafe-inline' https://*.googleapis.com https://*.gstatic.com 'unsafe-eval';
   media-src *;
   connect-src 'self' <%= settings.api_host%>">
   <meta name="format-detection" content="telephone=no">
