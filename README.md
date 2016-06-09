@@ -20,7 +20,6 @@ Or install it yourself as:
 
     $ gem install rubonic
 
-## Usage
 
 ### Requirements
 
@@ -31,7 +30,7 @@ On a mac, you will need Xcode and the [Xcode command line tools installed](https
 For android you will need the [android sdk](http://www.androidcentral.com/installing-android-sdk-windows-mac-and-linux-tutorial#slide2).
 
 
-rubonic will give you the following rake tasks.
+Rubonic will give you the following rake tasks.
 
 ```
 rake rubonic:android:build            # Builds android app into the CONFIG_FILE (defaults to build...
@@ -50,11 +49,16 @@ rake rubonic:ios:run                  # Runs ios app in Xcode
 
 This will generate a padrino project with a `mobile` and `api` sub apps and a `build` directory for the rake tasks.
 
-During development you can run `padrino start` and preview the app in `http://localhost:3000/mobile`
+During development you can run `padrino start` and preview the app in [http://localhost:3000/mobile](http://localhost:3000/mobile)
 
 The `api` sub app is there if you want to create a backend for the mobile app.
 
 The project template also imports angular and framework7.
+
+To add assets, change the `config/assets.yml`.
+
+The project template uses rspec, activerecord, haml and scsss, change this as per your needs.
+
 
 ## Contributing
 
