@@ -82,7 +82,7 @@ bower_framework7_path = File.join(destination_root, 'bower_components/Framework7
 FileUtils.cp "#{destination_root}/bower_components/angular/angular.js", "#{public_js_directory}"
 FileUtils.cp "#{destination_root}/bower_components/angular-ui-router/release/angular-ui-router.js", "#{public_js_directory}"
 FileUtils.cp "#{bower_framework7_path}/js/framework7.js", "#{public_js_directory}"
-FileUtils.cp "#{bower_framework7_path}/js/my-app.js", "#{public_js_directory}"
+FileUtils.cp "#{bower_framework7_path}/js/my-app.js", "#{public_js_directory}/framework7_loader.js"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.ios.css", "#{public_css_directory}"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.ios.colors.css", "#{public_css_directory}"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.ios.rtl.css", "#{public_css_directory}"
