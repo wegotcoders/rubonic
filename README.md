@@ -1,8 +1,8 @@
 # Rubonic
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rubonic`. To experiment with that code, run `bin/console` for an interactive prompt.
+Rake scripts to automate cordova development.
 
-TODO: Delete this and the text above, and describe your gem
+Rubonic allows you to package and run your HTML5 web apps in a web view with cordova.
 
 ## Installation
 
@@ -22,13 +22,39 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Requirements
 
-## Development
+Install cordova with `npm install cordova`
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+On a mac, you will need Xcode and the [Xcode command line tools installed](https://developer.apple.com/library/mac/recipes/xcode_help-locations_preferences/SpecifyingCommandLineTools/SpecifyingCommandLineTools.html) to deploy to iOS.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+For android you will need the [android sdk](http://www.androidcentral.com/installing-android-sdk-windows-mac-and-linux-tutorial#slide2).
+
+
+rubonic will give you the following rake tasks.
+
+```
+rake rubonic:android:build            # Builds android app into the CONFIG_FILE (defaults to build...
+rake rubonic:android:rebuild_and_run  # Builds & runs android app
+rake rubonic:android:run              # Runs android app
+rake rubonic:build:clean              # Blats the build_Dir in the CONFIG_FILE (defaults to build....
+rake rubonic:ios:build                # Builds ios app into the CONFIG_FILE (defaults to build.yml)
+rake rubonic:ios:rebuild_and_run      # Rebuilds and runs ios app in Xcode
+rake rubonic:ios:run                  # Runs ios app in Xcode
+```
+
+
+### Generating a Padrino project from a template
+
+`padrino g project test_proj --template <INSERT TEMPLATE URL HERE>`
+
+This will generate a padrino project with a `mobile` and `api` sub apps and a `build` directory for the rake tasks.
+
+During development you can run `padrino start` and preview the app in `http://localhost:3000/mobile`
+
+The `api` sub app is there if you want to create a backend for the mobile app.
+
+The project template also imports angular and framework7.
 
 ## Contributing
 
