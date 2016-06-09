@@ -26,3 +26,4 @@ stylesheets:
     # - public/stylesheets/main.css
 
 template_function: _.template
+package_assets: 'off'
