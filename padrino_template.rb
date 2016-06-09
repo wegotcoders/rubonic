@@ -3,7 +3,7 @@
 project :test              => :rspec,
         :orm               => :activerecord,
         :renderer          => :haml,
-        :stylesheet        => :scss,
+        :§sheet        => :scss,
         :migration_format  => :timestamp
 
 # # generate :model, "post title:string body:text"
@@ -60,6 +60,8 @@ bower = <<-BOWER
   ],
   "dependencies": {
     "angular": "^1.5.6",
+    "angular-mocks": "^1.5.6",
+    "angular-ui-router": "^0.3.1",
     "Framework7": "framework7#^1.4.2"
   }
 }
@@ -67,8 +69,26 @@ BOWER
 create_file 'bower.json', bower
 
 # Install the libraries specified in package.json and bower.json
+
 system "cd #{destination_root} && npm install"
 system "cd #{destination_root} && ./node_modules/bower/bin/bower install --save"
+
+require 'fileutils'
+
+public_js_directory   = File.join(destination_root, 'public/javascripts')
+public_css_directory  = File.join(destination_root, 'public/stylesheets')
+bower_framework7_path = File.join(destination_root, 'bower_components/Framework7/dist')
+
+FileUtils.cp "#{destination_root}/bower_components/angular/angular.js", "#{public_js_directory}"
+FileUtils.cp "#{destination_root}/bower_components/angular-ui-router/release/angular-ui-router.js", "#{public_js_directory}"
+FileUtils.cp "#{bower_framework7_path}/js/framework7.js", "#{public_js_directory}"
+FileUtils.cp "#{bower_framework7_path}/js/my-app.js", "#{public_js_directory}"
+FileUtils.cp "#{bower_framework7_path}/css/framework7.ios.css", "#{public_css_directory}"
+FileUtils.cp "#{bower_framework7_path}/css/framework7.ios.colors.css", "#{public_css_directory}"
+FileUtils.cp "#{bower_framework7_path}/css/framework7.ios.rtl.css", "#{public_css_directory}"
+FileUtils.cp "#{bower_framework7_path}/css/framework7.material.css", "#{public_css_directory}"
+FileUtils.cp "#{bower_framework7_path}/css/framework7.material.colors.css", "#{public_css_directory}"
+FileUtils.cp "#{bower_framework7_path}/css/framework7.material.rtl.css", "#{public_css_directory}"
 
 git :init
 
