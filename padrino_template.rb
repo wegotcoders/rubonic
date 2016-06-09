@@ -58,11 +58,7 @@ FileUtils.cp "#{bower_framework7_path}/css/framework7.ios.rtl.css", "#{public_cs
 FileUtils.cp "#{bower_framework7_path}/css/framework7.material.css", "#{public_css_directory}"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.material.colors.css", "#{public_css_directory}"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.material.rtl.css", "#{public_css_directory}"
-
-prepend_file "#{public_js_directory}/framework7_loader.js",
-             "document.addEventListener('DOMContentLoaded', function() {\n\n"
-append_file "#{public_js_directory}/framework7_loader.js", "});"
-
+add_file "#{public_js_directory}/framework7_loader.js", File.read("#{rubonic_templates_path}/framework7_loader.js")
 
 git :init
 
