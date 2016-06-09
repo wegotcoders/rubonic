@@ -25,6 +25,8 @@ add_file 'config/assets.yml', File.read("#{rubonic_templates_path}/assets.yml")
 add_file 'mobile/views/index.erb', File.read("#{rubonic_templates_path}/index.erb")
 add_file 'config/rubonic.yml', File.read("#{rubonic_templates_path}/rubonic.yml")
 add_file 'app/stylesheets/inuit.scss', File.read("#{rubonic_templates_path}/inuit.scss")
+add_file 'package.json', File.read("#{rubonic_templates_path}/package.json")
+add_file 'bower.json', File.read("#{rubonic_templates_path}/bower.json")
 
 inject_into_file "Gemfile", "gem 'rubonic'", :after => "source 'https://rubygems.org'\n"
 inject_into_file "Rakefile", "require 'rubonic'", :after => "require 'padrino-core/cli/rake'\n"
@@ -33,47 +35,10 @@ inject_into_file "mobile/app.rb", File.read("#{rubonic_templates_path}/app.rb"),
                 :after => "enable :sessions\n"
 prepend_file "mobile/app.rb", "require 'padrino-helpers'\n"
 
-
-# Create NPM's package.json
-package = <<-PACKAGE
-{
-  "name": "app",
-  "version": "0.0.1",
-  "dependencies": {
-    "bower": "*"
-  }
-}
-PACKAGE
-create_file 'package.json', package
-
-# Create bower.json
-bower = <<-BOWER
-{
-  "name": "app",
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "angular": "^1.5.6",
-    "angular-mocks": "^1.5.6",
-    "angular-ui-router": "^0.3.1",
-    "Framework7": "framework7#^1.4.2",
-    "inuit-starter-kit": "^0.2.9"
-  }
-}
-BOWER
-create_file 'bower.json', bower
-
 # Install the libraries specified in package.json and bower.json
 
 system "cd #{destination_root} && npm install"
 system "cd #{destination_root} && ./node_modules/bower/bin/bower install --save"
-
 
 # Copy required libraries to correct directories
 require 'fileutils'
