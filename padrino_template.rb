@@ -60,7 +60,7 @@ FileUtils.cp "#{bower_framework7_path}/css/framework7.material.colors.css", "#{p
 FileUtils.cp "#{bower_framework7_path}/css/framework7.material.rtl.css", "#{public_css_directory}"
 
 prepend_file "#{public_js_directory}/framework7_loader.js",
-             "document.addEventListener("DOMContentLoaded", function() {\n\n"
+             "document.addEventListener('DOMContentLoaded', function() {\n\n"
 append_file "#{public_js_directory}/framework7_loader.js", "});"
 
 
