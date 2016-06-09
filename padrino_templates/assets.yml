@@ -15,6 +15,7 @@ stylesheets:
     - public/stylesheets/framework7.ios.css
     - public/stylesheets/framework7.ios.colors.css
     - public/stylesheets/framework7.ios.rtl.css
+    - public/stylesheets/inuit.css
     # Unlock the stylesheets based on deployment to android or css
     # - public/stylesheets/framework7.material.css
     # - public/stylesheets/framework7.material.colors.css

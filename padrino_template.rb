@@ -24,7 +24,7 @@ rubonic_templates_path = "#{rubonic_root_path}/padrino_templates"
 add_file 'config/assets.yml', File.read("#{rubonic_templates_path}/assets.yml")
 add_file 'mobile/views/index.erb', File.read("#{rubonic_templates_path}/index.erb")
 add_file 'config/rubonic.yml', File.read("#{rubonic_templates_path}/rubonic.yml")
-add_file 'app/stylesheets/styles.scss', File.read("#{rubonic_templates_path}/styles.scss")
+add_file 'app/stylesheets/inuit.scss', File.read("#{rubonic_templates_path}/inuit.scss")
 
 inject_into_file "Gemfile", "gem 'rubonic'", :after => "source 'https://rubygems.org'\n"
 inject_into_file "Rakefile", "require 'rubonic'", :after => "require 'padrino-core/cli/rake'\n"
