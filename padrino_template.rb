@@ -22,15 +22,6 @@ empty_directory "build"
 rubonic_root_path = Gem::Specification.find_by_name('rubonic').gem_dir
 rubonic_templates_path = "#{rubonic_root_path}/padrino_templates"
 
-# add_file 'mobile/app.rb' do
-# <<-APP
-#   require 'jammit-sinatra'
-#   require 'padrino-helpers'
-
-#   module
-# APP
-# end File.read("#{rubonic_templates_path}/app.rb"), force: true
-
 add_file 'config/assets.yml', File.read("#{rubonic_templates_path}/assets.yml")
 add_file 'mobile/views/index.erb', File.read("#{rubonic_templates_path}/index.erb")
 add_file 'config/rubonic.yml', File.read("#{rubonic_templates_path}/rubonic.yml")
@@ -43,6 +34,50 @@ inject_into_file "mobile/app.rb", File.read("#{rubonic_templates_path}/app.rb"),
 prepend_file "mobile/app.rb", "require 'padrino-helpers'\n"
 
 
+# Create NPM's package.json
+package = <<-PACKAGE
+{
+  "name": "app",
+  "version": "0.0.1",
+  "dependencies": {
+    "bower": "*"
+  }
+}
+PACKAGE
+create_file 'package.json', package
+
+# Create bower.json
+bower = <<-BOWER
+{
+  "name": "app",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.6",
+    "Framework7": "framework7#^1.4.2"
+  }
+}
+BOWER
+create_file 'bower.json', bower
+
+# Install the libraries specified in package.json and bower.json
+system "cd #{destination_root} && npm install"
+system "cd #{destination_root} && ./node_modules/bower/bin/bower install --save"
+
+git :init
+
+# Ignore npm/bower specific stuff
+ignore = <<-IGNORE
+node_modules/
+bower_components/
+IGNORE
+append_file '.gitignore', ignore
 
 # run 'bundle'
 # bundle
