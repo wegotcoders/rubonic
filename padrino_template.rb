@@ -35,6 +35,7 @@ inject_into_file "mobile/app.rb", File.read("#{rubonic_templates_path}/app.rb"),
                 :after => "enable :sessions\n"
 prepend_file "mobile/app.rb", "require 'padrino-helpers'\n"
 
+
 # Install the libraries specified in package.json and bower.json
 
 system "cd #{destination_root} && npm install"
@@ -58,6 +59,9 @@ FileUtils.cp "#{bower_framework7_path}/css/framework7.material.css", "#{public_c
 FileUtils.cp "#{bower_framework7_path}/css/framework7.material.colors.css", "#{public_css_directory}"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.material.rtl.css", "#{public_css_directory}"
 
+prepend_file "#{public_js_directory}/framework7_loader.js",
+             "document.addEventListener("DOMContentLoaded", function() {\n\n"
+append_file "#{public_js_directory}/framework7_loader.js", "});"
 
 
 git :init
