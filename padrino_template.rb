@@ -18,16 +18,25 @@ generate :app, 'api'
 empty_directory "public/fonts"
 empty_directory "build"
 
+require 'fileutils'
+
+# setup required paths
 rubonic_root_path = Gem::Specification.find_by_name('rubonic').gem_dir
 rubonic_templates_path = "#{rubonic_root_path}/padrino_templates"
+public_js_directory   = File.join(destination_root, 'public/javascripts')
+public_css_directory  = File.join(destination_root, 'public/stylesheets')
+bower_framework7_path = File.join(destination_root, 'bower_components/Framework7/dist')
 
+# Copy our templates into the directories in the padrino project
 add_file 'config/assets.yml', File.read("#{rubonic_templates_path}/assets.yml")
 add_file 'mobile/views/index.erb', File.read("#{rubonic_templates_path}/index.erb")
 add_file 'config/rubonic.yml', File.read("#{rubonic_templates_path}/rubonic.yml")
 add_file 'app/stylesheets/inuit.scss', File.read("#{rubonic_templates_path}/inuit.scss")
 add_file 'package.json', File.read("#{rubonic_templates_path}/package.json")
 add_file 'bower.json', File.read("#{rubonic_templates_path}/bower.json")
+add_file "#{public_js_directory}/framework7_loader.js", File.read("#{rubonic_templates_path}/framework7_loader.js")
 
+# add additional requirements into the necessary files
 inject_into_file "Gemfile", "gem 'rubonic'", :after => "source 'https://rubygems.org'\n"
 inject_into_file "Rakefile", "require 'rubonic'", :after => "require 'padrino-core/cli/rake'\n"
 inject_into_file "Rakefile", "require 'rubonic/tasks'\n", :after => "require 'rubonic'\n"
@@ -35,30 +44,20 @@ inject_into_file "mobile/app.rb", File.read("#{rubonic_templates_path}/app.rb"),
                 :after => "enable :sessions\n"
 prepend_file "mobile/app.rb", "require 'padrino-helpers'\n"
 
-
-# Install the libraries specified in package.json and bower.json
-
+# Run npm and bower to get the required libraries
 system "cd #{destination_root} && npm install"
 system "cd #{destination_root} && ./node_modules/bower/bin/bower install --save"
 
 # Copy required libraries to correct directories
-require 'fileutils'
-
-public_js_directory   = File.join(destination_root, 'public/javascripts')
-public_css_directory  = File.join(destination_root, 'public/stylesheets')
-bower_framework7_path = File.join(destination_root, 'bower_components/Framework7/dist')
-
 FileUtils.cp "#{destination_root}/bower_components/angular/angular.js", "#{public_js_directory}"
 FileUtils.cp "#{destination_root}/bower_components/angular-ui-router/release/angular-ui-router.js", "#{public_js_directory}"
 FileUtils.cp "#{bower_framework7_path}/js/framework7.js", "#{public_js_directory}"
-FileUtils.cp "#{bower_framework7_path}/js/my-app.js", "#{public_js_directory}/framework7_loader.js"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.ios.css", "#{public_css_directory}"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.ios.colors.css", "#{public_css_directory}"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.ios.rtl.css", "#{public_css_directory}"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.material.css", "#{public_css_directory}"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.material.colors.css", "#{public_css_directory}"
 FileUtils.cp "#{bower_framework7_path}/css/framework7.material.rtl.css", "#{public_css_directory}"
-add_file "#{public_js_directory}/framework7_loader.js", File.read("#{rubonic_templates_path}/framework7_loader.js")
 
 git :init
 
