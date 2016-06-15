@@ -11,7 +11,7 @@ module Rubonic::Build
       end
 
       def run(*args)
-        execute "cd #{build_dir.path} && cordova run --nobuild"
+        execute "cd #{build_dir.path} && cordova run android --nobuild"
       end
     end
   end
