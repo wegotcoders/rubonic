@@ -68,6 +68,10 @@ module Rubonic::Build
         settings = Struct::Settings.new(config[:api_host])
         template = ERB.new(File.read('mobile/views/index.erb'))
 
+        def stylesheet_link_tag(*args)
+          "<link href='#{args[0]}' type='text/css' rel='stylesheet' />"
+        end
+
         def include_stylesheets(*args)
           '<link href="css/common.css" type="text/css" rel="stylesheet" />'
         end
@@ -80,11 +84,13 @@ module Rubonic::Build
       end
 
       def copy_assets_into_build_dir
-        FileUtils.cp_r 'public/images/.', File.join(build_dir.path, 'www', 'img')
+        FileUtils.cp_r 'public/images/.', File.join(build_dir.path, 'www', 'images')
         FileUtils.cp 'public/assets/common.css', File.join(build_dir.path, 'www', 'css')
         FileUtils.cp 'public/assets/application.js', File.join(build_dir.path, 'www', 'js')
         FileUtils.cp_r 'public/fonts/.', File.join(build_dir.path, 'www', 'fonts')
         FileUtils.cp 'public/index.html', File.join(build_dir.path, 'www')
+        FileUtils.cp_r 'public/templates/', File.join(build_dir.path, 'www', 'templates')
+        FileUtils.cp_r 'public/data/', File.join(build_dir.path, 'www', "data")
       end
 
       private
